@@ -20,9 +20,9 @@ describe('check-branch', () => {
   });
   describe('success', () => {
     it('should resolve object with success true if in right branch', () => {
-      return checker('master').should.be.fulfilledWith({
+      return checker('testbranch').should.be.fulfilledWith({
         success: true,
-        detail: 'master'
+        detail: 'testbranch'
       });
     });
   });
@@ -31,7 +31,7 @@ describe('check-branch', () => {
       stdio: 'pipe'
     }));
     afterEach(() => {
-      execSync('git checkout master', {
+      execSync('git checkout testbranch', {
         stdio: 'pipe'
       });
       execSync('git branch -D sometestbranch', {
@@ -39,7 +39,7 @@ describe('check-branch', () => {
       });
     });
     it('should resolve object with success false if not in right branch', () => {
-      return checker('master').should.be.fulfilledWith({
+      return checker('testbranch').should.be.fulfilledWith({
         success: false,
         detail: 'sometestbranch'
       });
@@ -52,13 +52,13 @@ describe('check-branch', () => {
       });
     });
     it('should reject with an error when cwd is not a string', () => {
-      return checker('master', {}).should.be.rejectedWith(TypeError, {
+      return checker('testbranch', {}).should.be.rejectedWith(TypeError, {
         message: 'Expected cwd to be a string'
       });
     });
     it('should reject with an error when no git repository found', () => {
       let dir = os.tmpdir();
-      return checker('master', dir).should.be.rejectedWith(Error, {
+      return checker('testbranch', dir).should.be.rejectedWith(Error, {
         message: `No git repository was found in ${dir}`
       });
     });
