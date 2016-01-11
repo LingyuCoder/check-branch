@@ -6,7 +6,7 @@ const os = require('os');
 const execSync = require('child_process').execSync;
 
 describe('check-branch', () => {
-  const currentBranch = (execSync('git status').toString().match(/^On\sbranch\s(.*)\s/) || [])[1] || 'master';
+  const currentBranch = (execSync('git status').toString().match(/On\sbranch\s(.*)\s/) || [])[1] || 'master';
   before(() => execSync('git checkout -b testbranch', {
     stdio: 'pipe'
   }));

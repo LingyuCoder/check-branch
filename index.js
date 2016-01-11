@@ -2,7 +2,7 @@
 
 const execSync = require('child_process').execSync;
 const co = require('co');
-const RE_BRANCH = /^On\sbranch\s(.*)\s/;
+const RE_BRANCH = /On\sbranch\s(.*)\s/;
 
 module.exports = co.wrap(function*(branch, cwd) {
   cwd = cwd || process.cwd();
