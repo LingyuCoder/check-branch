@@ -2,6 +2,7 @@
 
 const execSync = require('child_process').execSync;
 const co = require('co');
+const RE_BRANCH = /^On\sbranch\s(.*)\s/;
 
 module.exports = co.wrap(function*(branch, cwd) {
   cwd = cwd || process.cwd();
@@ -18,7 +19,11 @@ module.exports = co.wrap(function*(branch, cwd) {
       return Promise.reject(new Error(`No git repository was found in ${cwd}`));
     return Promise.reject(e);
   }
+  let currentBranch = cmdRst.match(RE_BRANCH);
+  if (!currentBranch) return Promise.reject(new Error('Can not find current branch'));
+  currentBranch = currentBranch[1];
   return {
-    success: cmdRst.trim().indexOf(`On branch ${branch}`) === 0
+    success: branch === currentBranch,
+    detail: currentBranch
   };
 });
