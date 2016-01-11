@@ -20,7 +20,6 @@ module.exports = co.wrap(function*(branch, cwd) {
     return Promise.reject(e);
   }
   let currentBranch = cmdRst.match(RE_BRANCH);
-  if (!currentBranch) return Promise.reject(new Error('Can not find current branch'));
   currentBranch = currentBranch[1];
   return {
     success: branch === currentBranch,
