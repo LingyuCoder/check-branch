@@ -19,7 +19,9 @@ module.exports = co.wrap(function*(branch, cwd) {
       return Promise.reject(new Error(`No git repository was found in ${cwd}`));
     return Promise.reject(e);
   }
+  console.log(cmdRst);
   let currentBranch = cmdRst.match(RE_BRANCH);
+
   currentBranch = currentBranch[1];
   return {
     success: branch === currentBranch,
