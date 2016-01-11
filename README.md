@@ -9,7 +9,7 @@
 [![License](http://img.shields.io/npm/l/check-branch.svg?style=flat-square)](LICENSE)
 [![npm download](https://img.shields.io/npm/dm/check-branch.svg?style=flat-square)](https://npmjs.org/package/check-branch)
 
-Check that you are in the right branch
+> Check that you are in the right branch
 
 ## Installation
 
@@ -18,6 +18,28 @@ $ npm install --save check-branch
 ```
 
 ## Usage
+
+Promise check(branch[, cwd])
+
+```javascript
+const checker = require('check-taggable');
+checker('master', '/Users/xxx/project_dir') // default process.cwd()
+  .then(result => {
+    /*
+    result = {
+      // check result
+      success: true|false,
+      // current branch
+      detail: String
+    }
+    */
+    if(result.success)
+      console.log('Passed');
+    else
+      console.log(`Expected to be in branch master but current in ${result.detail}`);
+  })
+  .catch(e => console.error(e.message));
+```
 
 ## Test
 
