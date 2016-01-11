@@ -6,6 +6,18 @@ const os = require('os');
 const execSync = require('child_process').execSync;
 
 describe('check-branch', () => {
+  const currentBranch = execSync('git status').toString().match(/^On\sbranch\s(.*)\s/)[1];
+  before(() => execSync('git checkout -b testbranch', {
+    stdio: 'pipe'
+  }));
+  after(() => {
+    execSync(`git checkout ${currentBranch}`, {
+      stdio: 'pipe'
+    });
+    execSync('git branch -D testbranch', {
+      stdio: 'pipe'
+    });
+  });
   describe('success', () => {
     it('should resolve object with success true if in right branch', () => {
       return checker('master').should.be.fulfilledWith({
