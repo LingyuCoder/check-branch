@@ -22,7 +22,7 @@ $ npm install --save check-branch
 Promise check(branch[, cwd])
 
 ```javascript
-const checker = require('check-taggable');
+const checker = require('check-branch');
 checker('master', '/Users/xxx/project_dir') // default process.cwd()
   .then(result => {
     /*
